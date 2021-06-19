@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "ViewItemDetails";
+}
+
+
+
+
+<div class="page-controls-section">
+    <div class="card mb-0">
+        <div class="controls-section-header">
+            <ul class="nav nav-tabs nav-fill responsive-tab" role="tablist">
+                <li><a class="nav-item nav-link" asp-controller="ItemDetails" asp-action="ItemMasterDetails">Add</a></li>
+                <li><a class="nav-item nav-link active" href="#">View</a></li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive" id="viewtable">
+                <table data-toggle="table" class="table table-bordered small-data" id="dtItemDetails">
+                    <thead>
+                        <tr>
+                            <th width="20">Sl#</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Expiry Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"  />
+
+
+<script type="text/javascript" language="javascript">
+
+    $(document).ready(function () {
+        LoadData();
+    });
+
+    function LoadData() {
+
+        $.ajax({
+            url: '@Url.Content("~/")' + 'ItemDetails/GetItemList',
+            data: { id: '' },
+            type: "get",
+            dataType: "json",
+
+            success: function (data) {
+                //console.log(JSON.parse(data.data))
+                var defaultmessage = "No records found!";
+                if (data.state == "success") {
+                    var result = JSON.parse(data.data);
+                    var oTable = $('#dtItemDetails').DataTable({
+                        "language": {
+                            "emptyTable": defaultmessage
+                        },
+                        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
+                        destroy: true,
+                        deferRender: true
+                    });
+
+                    oTable.row().clear().draw();
+
+                    for (var i = 0; i < result.length; i++) {
+                        var actionHtml = "";
+                        actionHtml += '        <a class="edit" data-toggle="tooltip" title="" data-original-title="Edit">';
+                        actionHtml += '        <i class="fa fa-edit" data-id="' + result[i].itemId +'" onclick="EditMasterData(this);"></i>';
+                        actionHtml += '        </a><a class="delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash DeleteMasterData" data-id="' + result[i].itemId +'" onclick="DeleteMasterData(this);"></i></a>';
+
+                        oTable.row.add([
+                            (i + 1),
+                            result[i].itemName,
+                            result[i].price,
+                            result[i].description,
+                            result[i].expiryDate,
+                            actionHtml,
+                        ]).draw();
+                    }
+                }
+                else {
+                    defaultmessage=data.message;
+                }
+            }
+        });
+    }
+
+
+
+    function DeleteMasterData(obj) {
+        if (confirm("Are you sure for delete?")) {
+            var id = $(obj).data('id');
+            $.ajax({
+                url: '@Url.Content("~/")' + 'ItemDetails/DeleteItemDetails',
+                data: { redId: id },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == "success") {
+                        alert(data.message);
+                    }
+                    else {
+
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+        LoadData();
+    }
+
+    function EditMasterData(obj) {
+        var idValue = $(obj).data('id');
+        var link = '@Url.Action("ItemMasterDetails", "ItemDetails", new { id = "replace" })';
+            link = link.replace("replace", idValue);
+        window.location.href = link;
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

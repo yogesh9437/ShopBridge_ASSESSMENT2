@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewData["Title"] = "ItemMasterDetails";
+}
+
+<style>
+    .star {
+        color: red;
+    }
+
+    .indicatorslist {
+        text-align: right;
+    }
+</style>
+
+
+
+<div class="page-controls-section">
+    <div class="card mb-0">
+        <div class="controls-section-header">
+            <ul class="nav nav-tabs nav-fill responsive-tab" role="tablist">
+                <li><a class="nav-item nav-link active" href="#">Add</a></li>
+                <li><a class="nav-item nav-link " asp-controller="ItemDetails" asp-action="ViewItemDetails">View</a></li>
+            </ul>
+            <div class="indicatorslist">
+                <span id="indicate">(<span class="star">*</span>) Indicates mandatory </span>
+            </div>
+        </div>
+
+        <div class="card-body pt-2">
+            <div class="registration-form" id="viewtable">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h6 class="sub-head"><span>Item Inventory Details</span> </h6>
+                        <div class="card bg-light mb-0">
+                            <div class="card-body  p-2">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="hidden" id="hfItemId" value="@ViewBag.RelId" />
+                                            <label for="TextFullName">Name <span class="star">*</span></label>
+                                            <input type="text" id="txtName" maxlength="60" class="form-control" placeholder="Name" value="" autocomplete="off" />
+                                            <div id="ErrorName" class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="TextFullName">Price <span class="star">*</span></label>
+                                            <input type="text" id="txtPrice" maxlength="10" placeholder="0.0" class="form-control" autocomplete="off" />
+                                            <div id="ErrorPrice" class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="TextFullName">Description <span class="star">*</span></label>
+                                            <textarea type="text" id="txtDescription" maxlength="200" placeholder="Description" class="form-control" autocomplete="off"></textarea>
+                                            <div id="ErrorDescription" class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="TextFullName">Expiry Date <span class="star">*</span></label>
+                                            <input type="text" id="txtExpiryDate" maxlength="5" placeholder="Expiry Date" class="form-control" autocomplete="off" />
+                                            <div id="ErrorExpiryDate" class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12" style="text-align: center;">
+                        <button id="btnSave" type="button" class="btn btn-success mr-2">Submit</button>
+                        <button id="btnCancel" type="button" class="btn btn-danger mr-2">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        if ($("#hfItemId").val() != "0") {
+            GetItemDetails();
+        }
+    });
+
+    function GetItemDetails() {
+        $.ajax({
+            url: '@Url.Content("~/")' + 'ItemDetails/GetItemList',
+                data: { id: $.trim($('#hfItemId').val()) },
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == "success") {
+                        var result = JSON.parse(data.data);
+                        $('#txtName').val(result.itemName);
+                        $('#txtPrice').val(result.price);
+                        $('#txtDescription').val(result.description);
+                        $('#txtExpiryDate').val(result.expiryDate);
+                        $('#btnSave').html("Update");
+                    }
+                    else {
+                        alert('No Data Found!');
+                    }
+                }
+            });
+    }
+
+    function validateData() {
+
+        if ($("#txtName").val() != "") {
+            $('#txtName').removeClass("is-invalid");
+            $('#ErrorName').html("");
+
+        }
+        else {
+            $('#txtName').addClass("form-control shadow-sm is-invalid");
+            $('#ErrorName').html("Please Enter Name!");
+            $('#txtName').focus();
+            return false;
+        }
+
+        if ($("#txtPrice").val() != "") {
+            $('#ErrorPrice').removeClass("is-invalid");
+            $('#ErrorPrice').html("");
+
+        }
+        else {
+            $('#txtPrice').addClass("form-control shadow-sm is-invalid");
+            $('#ErrorPrice').html("Please Enter Price!");
+            $('#txtPrice').focus();
+            return false;
+        }
+
+
+        if ($("#txtDescription").val() != "") {
+            $('#txtDescription').removeClass("is-invalid");
+            $('#ErrorDescription').html("");
+
+        }
+        else {
+            $('#txtDescription').addClass("form-control shadow-sm is-invalid");
+            $('#ErrorDescription').html("Please Enter Description!");
+            $('#txtDescription').focus();
+            return false;
+        }
+
+        if ($("#txtExpiryDate").val() != "") {
+            $('#txtExpiryDate').removeClass("is-invalid");
+            $('#ErrorExpiryDate').html("");
+
+        }
+        else {
+            $('#txtExpiryDate').addClass("form-control shadow-sm is-invalid");
+            $('#ErrorExpiryDate').html("Please Enter Expiry date!");
+            $('#txtExpiryDate').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    function SaveRecord() {
+        var thisRecord = new Object();
+        thisRecord.Itemid = parseInt($.trim($('#hfItemId').val()));
+        thisRecord.ItemName = $('#txtName').val().trim();
+        thisRecord.Price = $('#txtPrice').val().trim();
+        thisRecord.Description = $('#txtDescription').val().trim();
+        thisRecord.ExpiryDate = $('#txtExpiryDate').val().trim();
+
+        $.ajax({
+                url: '@Url.Content("~/")' + 'ItemDetails/AddItemDetails',
+                data: thisRecord,
+                type: "post",
+                dataType: "json",
+                //cache: false,
+                async: true,
+                //contentType: false,
+                //processData: false,
+                success: function (data) {
+                    var result = data;
+                    if (result.state == "success") {
+                        alert(result.message);
+                    }
+                    else {
+                        alert(result.message);
+                    }
+                    clear();
+                },
+                error: function (xhr) {
+                    if (xhr.status === 401)
+                    {
+                       var link = '@Url.Action("ItemMasterDetails", "ItemDetails")'
+                       window.location.href = link;
+                    }
+                }
+            });
+    }
+
+    $('#btnSave').click(function () {
+
+        if (validateData() == true) {
+            SaveRecord();
+        }
+    });
+
+    function clear() {
+        $('#txtName').val('');
+        $('#txtPrice').val('');
+        $('#txtDescription').val('');
+        $('#txtExpiryDate').val('');
+        $('#btnSave').html("Submit");
+        $('#hfItemId').val('0');
+    }
+
+    $('#btnCancel').click(function () {
+        clear();
+    });
+
+</script>

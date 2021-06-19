@@ -1,0 +1,19 @@
+
+Visual Studio 2019
+Target Framework : .net 5
+
+MSSQL Server
+SQL Server Management Studio: 15.0.18384.0
+SQL Server Management Objects (SMO): 16.100.46367.54
+Operating System: 10.0.19042
+
+
+Step :
+1. Open the "ShopBridge.API"and "ShopBridge.App" in the visual studio code from a single solution
+2. in the code first approach we have update the database in "Package manager console" command : update-database
+3. Build and run the Solution 
+4. copy the "xxxxx" part of the URL http://localhost:xxxxx/swagger/index.html and past it in the "ShopBridge.App" / appsetting.json "_apiRootURL"
+5. copy the "xxxxx" part of the URL http://localhost:xxxxx/swagger/index.html and past it in the application (visual studio code) : src\app\shared\item-detail.service.ts
+	line No:11 "_apiRootURL": "http://localhost:xxxxx/api/"
+6. before run application make sure to connect with internet, because I have past the direct URL of cdn.
+

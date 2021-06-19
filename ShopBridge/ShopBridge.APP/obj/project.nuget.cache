@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y6zbPU3wtEomDCux32v9iIXqTUJBq4s+kLtVMd7dfOXX5+rRAX9m/2x193n1wl/onGWj/IkX5oX0ITyixrpqYA==",
+  "dgSpecHash": "3UMTzVqcTCB7elC61YICm9t3+VkUSimUFPMuNTp3lb0bI7fm135g2H3wx+iHAJXglvBEKzN8SCppxzdQDqow0A==",
   "success": true,
-  "projectFilePath": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge\\ShopBridge.APP\\ShopBridge.APP.csproj",
+  "projectFilePath": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge_ASSESSMENT2\\ShopBridge\\ShopBridge.APP\\ShopBridge.APP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ypsat\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\ypsat\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

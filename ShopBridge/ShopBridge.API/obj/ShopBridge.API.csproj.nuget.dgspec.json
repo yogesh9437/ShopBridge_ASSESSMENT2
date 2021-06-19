@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj": {}
+    "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge_ASSESSMENT2\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj": {}
   },
   "projects": {
-    "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj": {
+    "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge_ASSESSMENT2\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj",
+        "projectUniqueName": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge_ASSESSMENT2\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj",
         "projectName": "ShopBridge.API",
-        "projectPath": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj",
+        "projectPath": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge_ASSESSMENT2\\ShopBridge\\ShopBridge.API\\ShopBridge.API.csproj",
         "packagesPath": "C:\\Users\\ypsat\\.nuget\\packages\\",
-        "outputPath": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge\\ShopBridge.API\\obj\\",
+        "outputPath": "D:\\YOSH\\Assessment\\ASSESSMENT TEST 17062021\\ShopBridge_ASSESSMENT2\\ShopBridge\\ShopBridge.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ypsat\\AppData\\Roaming\\NuGet\\NuGet.Config",
